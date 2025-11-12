@@ -49,14 +49,16 @@ async function sendTelegram(message) {
   }
 }
 
-// === 工具函数：发送企业微信 Webhook 通知 ===
+// === 工具函数：发送企业微信 Webhook 通知（纯文本） ===
 async function sendWeCom(message) {
   const webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=e95c6f16-edc6-4d0c-9f2b-c2793b3a164e';
 
   const payload = {
-    msgtype: 'markdown',
-    markdown: {
+    msgtype: 'text',
+    text: {
       content: message
+      // 可选：指定接收人（userid列表，用空格分隔）
+      // mentioned_list: ['wanghui', 'WB01997504']
     }
   };
 
@@ -65,7 +67,7 @@ async function sendWeCom(message) {
       timeout: 10000,
       headers: { 'Content-Type': 'application/json' }
     });
-    console.log('✅ 企业微信 Webhook 通知发送成功');
+    console.log('✅ 企业微信 Webhook 通知（纯文本）发送成功');
   } catch (e) {
     console.error('⚠️ 企业微信 Webhook 发送失败:', e.message || e);
   }
